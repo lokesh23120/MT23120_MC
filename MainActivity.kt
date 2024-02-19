@@ -1,4 +1,5 @@
 package com.example.assignment_1
+import androidx.compose.ui.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +14,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.runtime.Composable
+import androidx.compose.foundation.background
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,56 +28,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainContent() {
-    // Initialize stops
-    val normalStops = remember {
-        mutableListOf(
-            "source" to 0.0,
-            "Stop 1" to 10.0,
-            "Stop 2" to 20.0,
-            "Stop 3" to 30.0,
-            "Stop 4" to 40.0,
-            "Stop 5" to 50.0,
-            "Stop 6" to 10.0,
-            "Stop 7" to 20.0,
-//            "Stop 8" to 30.0,
-//            "Stop 9" to 40.0,
-//            "Stop 10" to 50.0,
-//            "Stop 11" to 10.0,
-//            "Stop 12" to 20.0,
-//            "Stop 13" to 30.0,
-//            "Stop 14" to 40.0,
-//            "Stop 15" to 50.0,
-//            "Stop 16" to 10.0,
-//            "Stop 17" to 20.0,
-//            "Stop 18" to 30.0,
-//            "Stop 19" to 40.0,
-//            "Stop 20" to 50.0,
-//            "source" to 0.0,
-//            "Stop 1" to 10.0,
-//            "Stop 2" to 20.0,
-//            "Stop 3" to 30.0,
-//            "Stop 4" to 40.0,
-//            "Stop 5" to 50.0,
-//            "Stop 6" to 10.0,
-//            "Stop 7" to 20.0,
-//            "Stop 8" to 30.0,
-//            "Stop 9" to 40.0,
-//            "Stop 10" to 50.0,
-//            "Stop 11" to 10.0,
-//            "Stop 12" to 20.0,
-//            "Stop 13" to 30.0,
-//            "Stop 14" to 40.0,
-//            "Stop 15" to 50.0,
-//            "Stop 16" to 10.0,
-//            "Stop 17" to 20.0,
-//            "Stop 18" to 30.0,
-//            "Stop 19" to 40.0,
-//            "Stop 20" to 50.0,
-            "destination" to 60.0
-
-        )
-    }
-
 //    val normalStops = remember {
 //        mutableListOf(
 //            "source" to 0.0,
@@ -84,106 +38,153 @@ fun MainContent() {
 //            "Stop 5" to 50.0,
 //            "Stop 6" to 10.0,
 //            "Stop 7" to 20.0,
-////            "Stop 8" to 30.0,
-////            "Stop 9" to 40.0,
-////            "Stop 10" to 50.0,
-////            "Stop 11" to 10.0,
-////            "Stop 12" to 20.0,
-////            "Stop 13" to 30.0,
-////            "Stop 14" to 40.0,
-////            "Stop 15" to 50.0,
-////            "Stop 16" to 10.0,
-////            "Stop 17" to 20.0,
-////            "Stop 18" to 30.0,
-////            "Stop 19" to 40.0,
-////            "Stop 20" to 50.0,
-////            "source" to 0.0,
-////            "Stop 1" to 10.0,
-////            "Stop 2" to 20.0,
-////            "Stop 3" to 30.0,
-////            "Stop 4" to 40.0,
-////            "Stop 5" to 50.0,
-////            "Stop 6" to 10.0,
-////            "Stop 7" to 20.0,
-////            "Stop 8" to 30.0,
-////            "Stop 9" to 40.0,
-////            "Stop 10" to 50.0,
-////            "Stop 11" to 10.0,
-////            "Stop 12" to 20.0,
-////            "Stop 13" to 30.0,
-////            "Stop 14" to 40.0,
-////            "Stop 15" to 50.0,
-////            "Stop 16" to 10.0,
-////            "Stop 17" to 20.0,
-////            "Stop 18" to 30.0,
-////            "Stop 19" to 40.0,
-////            "Stop 20" to 50.0,
 //            "destination" to 60.0
-//
 //        )
 //    }
 
-
-    // Track current stop index
+    val normalStops = remember {
+        mutableListOf(
+            "source" to 0.0,
+            "Stop 1" to 10.0,
+            "Stop 2" to 20.0,
+            "Stop 3" to 30.0,
+            "Stop 4" to 40.0,
+            "Stop 5" to 50.0,
+            "Stop 6" to 10.0,
+            "Stop 7" to 20.0,
+            "Stop 8" to 30.0,
+            "Stop 9" to 40.0,
+            "Stop 10" to 50.0,
+            "Stop 11" to 10.0,
+            "Stop 12" to 20.0,
+            "Stop 13" to 30.0,
+            "Stop 14" to 40.0,
+            "Stop 15" to 50.0,
+            "Stop 16" to 10.0,
+            "Stop 17" to 20.0,
+            "Stop 18" to 30.0,
+            "Stop 19" to 40.0,
+            "Stop 20" to 50.0,
+            "Stop 21" to 10.0,
+            "Stop 22" to 20.0,
+            "Stop 23" to 30.0,
+            "Stop 24" to 40.0,
+            "Stop 25" to 50.0,
+            "Stop 26" to 10.0,
+            "Stop 27" to 20.0,
+            "Stop 28" to 30.0,
+            "Stop 29" to 40.0,
+            "Stop 30" to 50.0,
+            "Stop 31" to 10.0,
+            "Stop 32" to 20.0,
+            "Stop 33" to 30.0,
+            "Stop 34" to 40.0,
+            "Stop 35" to 50.0,
+            "Stop 36" to 10.0,
+            "Stop 37" to 20.0,
+            "Stop 38" to 30.0,
+            "Stop 39" to 40.0,
+            "Stop 40" to 50.0,
+            "destination" to 60.0
+        )
+    }
     val currentStopIndex = remember { mutableStateOf(0) }
-
-    // Track distance unit
     val isKilometers = remember { mutableStateOf(true) }
-
-    // Total stops
     val totalStops = normalStops.size
-
-    // Total distance covered
     var totalDistanceCovered by remember { mutableStateOf(0.0) }
-
-    // Remaining distance
     var remainingDistance by remember { mutableStateOf(normalStops.sumOf { it.second }) }
-
-    // Calculate total distance covered and remaining distance
     LaunchedEffect(currentStopIndex.value) {
         totalDistanceCovered = normalStops.subList(1, currentStopIndex.value + 1).sumOf { it.second }
         remainingDistance = normalStops.subList(currentStopIndex.value + 1, normalStops.size).sumOf { it.second }
     }
-    Column {
-        TextBox(
-            normalStops = normalStops,
-            currentStopIndex = currentStopIndex.value,
-            isKilometers = isKilometers.value,
-            totalDistanceCovered = totalDistanceCovered,
-            remainingDistance = remainingDistance
-        )
 
-        ProgressBar(
-            currentStopIndex = currentStopIndex.value,
-            totalStops = totalStops
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxWidth()
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color(0xFF87CEEB))
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
         ) {
-            ConvertUnitsButton(isKilometers = isKilometers)
-            NextStopButton(
-                currentStopIndex = currentStopIndex,
-                totalStops = totalStops,
-                isKilometers = isKilometers,
-                onStopReached = {
-                    if (currentStopIndex.value < totalStops - 1) {
-                        currentStopIndex.value++
+            Spacer(modifier = Modifier.height(64.dp))
+            ProgressBar(
+                currentStopIndex = currentStopIndex.value,
+                totalStops = totalStops
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            TextBox(
+                normalStops = normalStops,
+                currentStopIndex = currentStopIndex.value,
+                isKilometers = isKilometers.value,
+                totalDistanceCovered = totalDistanceCovered,
+                remainingDistance = remainingDistance
+            )
+            Spacer(modifier = Modifier.height(300.dp))
+            ListTypeTextBox(normalStops)
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                horizontalArrangement = Arrangement.Start,
+                modifier = Modifier.fillMaxWidth()
+            )
+            {
+                Spacer(modifier = Modifier.weight(0.07f))
+                ConvertUnitsButton(isKilometers = isKilometers)
+                Spacer(modifier = Modifier.weight(0.5f))
+                NextStopButton(
+                    currentStopIndex = currentStopIndex,
+                    totalStops = totalStops,
+                    isKilometers = isKilometers,
+                    onStopReached = {
+                        if (currentStopIndex.value < totalStops - 1) {
+                            currentStopIndex.value++
+                        }
                     }
+                )
+                Spacer(modifier = Modifier.weight(0.07f))
+            }
+            //Spacer(modifier = Modifier.height(16.dp))
+            LoadStopsButton(
+                normalStops = normalStops,
+                currentStopIndex = currentStopIndex.value,
+                isKilometers = isKilometers,
+                onStopsLoaded = { loadedStops ->
+                    val convertedStops = loadedStops.map { (stopName, distance) ->
+                        stopName to convertDistance(distance, isKilometers.value)
+                    }
+                    normalStops.clear()
+                    normalStops.addAll(convertedStops)
                 }
             )
+
         }
-        ListTypeTextBox(normalStops)
-        LoadStopsButton(normalStops) // Adding Load Stops button
     }
+
+}
+
+@Composable
+fun ListTypeTextBox(normalStops: List<Pair<String, Double>>) {
+    val listType = if (normalStops.size <= 10) "Normal list" else "Lazy list"
+    Text(
+        text = "List Type: $listType",
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
+
+private fun convertDistance(distance: Double, isKilometers: Boolean): Double {
+    return if (isKilometers) distance * 0.621371 else distance / 0.621371
 }
 
 @Composable
 fun LoadStopsButton(
-    normalStops: List<Pair<String, Double>>
+    normalStops: List<Pair<String, Double>>,
+    currentStopIndex: Int,
+    isKilometers: MutableState<Boolean>,
+    onStopsLoaded: (List<Pair<String, Double>>) -> Unit
 ) {
     var showDialog by remember { mutableStateOf(false) }
+    var loadedStops by remember { mutableStateOf<List<Pair<String, Double>>?>(null) }
 
     Button(
         onClick = { showDialog = true },
@@ -199,30 +200,26 @@ fun LoadStopsButton(
             onDismissRequest = { showDialog = false },
             title = { Text(text = "Stops") },
             text = {
-                if (normalStops.size > 10) {
-                    LazyColumn {
-                        items(normalStops.size) { index ->
-                            val (stopName, distance) = normalStops[index]
-                            Text(
-                                text = "$stopName - ${formatDistance(distance, true)}",
-                                modifier = Modifier.padding(bottom = 8.dp)
-                            )
-                        }
-                    }
-                } else {
-                    Column {
-                        normalStops.forEach { (stopName, distance) ->
-                            Text(
-                                text = "$stopName - ${formatDistance(distance, true)}",
-                                modifier = Modifier.padding(bottom = 8.dp)
-                            )
-                        }
+                LazyColumn {
+                    items(normalStops.size) { index ->
+                        val (stopName, distance) = normalStops[index]
+                        val convertedDistance = if (isKilometers.value) distance else distance / 0.621371
+                        val textColor = if (index == currentStopIndex) Color.Magenta else Color.Black
+                        Text(
+                            text = "$stopName - ${formatDistance(convertedDistance, isKilometers.value)}",
+                            modifier = Modifier.padding(bottom = 8.dp),
+                            color = textColor
+                        )
                     }
                 }
             },
             confirmButton = {
                 Button(
-                    onClick = { showDialog = false }
+                    onClick = {
+                        showDialog = false
+                        onStopsLoaded(normalStops)
+                        loadedStops = normalStops
+                    }
                 ) {
                     Text(text = "Close")
                 }
@@ -232,27 +229,14 @@ fun LoadStopsButton(
 }
 
 
-
-@Composable
-fun ListTypeTextBox(normalStops: List<Pair<String, Double>>) {
-    val listType = if (normalStops.size <= 10) "Normal list" else "Lazy list"
-    Text(
-        text = "List Type: $listType",
-        modifier = Modifier.padding(16.dp)
-    )
-}
 @Composable
 fun ProgressBar(currentStopIndex: Int, totalStops: Int) {
     val progress = if (currentStopIndex == totalStops - 1) 1.0f else currentStopIndex.toFloat() / totalStops.toFloat()
-//    LinearProgressIndicator(
-//        progress = progress,
-//        modifier = Modifier.padding(16.dp)
-//    )
     LinearProgressIndicator(
         progress = progress,
         modifier = Modifier
-            .padding(horizontal = 16.dp) // Add horizontal padding
-            .fillMaxWidth() // Make it cover the whole width of the screen
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth()
     )
 }
 
@@ -293,7 +277,7 @@ fun TextBox(
 // Function to format distance based on selected unit
 private fun formatDistance(distance: Double, isKilometers: Boolean): String {
     val unit = if (isKilometers) "km" else "mi"
-    val convertedDistance = if (isKilometers) distance else distance * 0.621371 // convert kilometers to miles if necessary
+    val convertedDistance = if (isKilometers) distance else distance * 0.621371
     return String.format("%.2f %s", convertedDistance, unit)
 }
 
@@ -327,4 +311,3 @@ fun DefaultPreview() {
         MainContent()
     }
 }
-
