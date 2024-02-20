@@ -1,21 +1,28 @@
 package com.example.assignment_1
-import androidx.compose.ui.graphics.Color
-import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import androidx.compose.foundation.background
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.LinearProgressIndicator
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
+import android.os.Bundle
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,22 +33,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
+
 @Composable
 fun MainContent() {
-//    val normalStops = remember {
-//        mutableListOf(
-//            "source" to 0.0,
-//            "Stop 1" to 10.0,
-//            "Stop 2" to 20.0,
-//            "Stop 3" to 30.0,
-//            "Stop 4" to 40.0,
-//            "Stop 5" to 50.0,
-//            "Stop 6" to 10.0,
-//            "Stop 7" to 20.0,
-//            "destination" to 60.0
-//        )
-//    }
-
     val normalStops = remember {
         mutableListOf(
             "source" to 0.0,
@@ -143,48 +138,33 @@ fun MainContent() {
                 )
                 Spacer(modifier = Modifier.weight(0.07f))
             }
-            //Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+            // Usage in MainContent function
             LoadStopsButton(
-                normalStops = normalStops,
+                originalNormalStops = normalStops,
                 currentStopIndex = currentStopIndex.value,
                 isKilometers = isKilometers,
                 onStopsLoaded = { loadedStops ->
-                    val convertedStops = loadedStops.map { (stopName, distance) ->
-                        stopName to convertDistance(distance, isKilometers.value)
-                    }
-                    normalStops.clear()
-                    normalStops.addAll(convertedStops)
+                    // You can perform further operations on loadedStops if needed
+                    // this@MainActivity.loadedStops = loadedStops
                 }
             )
 
         }
     }
 
+
+
 }
-
-@Composable
-fun ListTypeTextBox(normalStops: List<Pair<String, Double>>) {
-    val listType = if (normalStops.size <= 10) "Normal list" else "Lazy list"
-    Text(
-        text = "List Type: $listType",
-        modifier = Modifier.padding(16.dp)
-    )
-}
-
-
-private fun convertDistance(distance: Double, isKilometers: Boolean): Double {
-    return if (isKilometers) distance * 0.621371 else distance / 0.621371
-}
-
 @Composable
 fun LoadStopsButton(
-    normalStops: List<Pair<String, Double>>,
+    originalNormalStops: List<Pair<String, Double>>,
     currentStopIndex: Int,
     isKilometers: MutableState<Boolean>,
     onStopsLoaded: (List<Pair<String, Double>>) -> Unit
 ) {
     var showDialog by remember { mutableStateOf(false) }
-    var loadedStops by remember { mutableStateOf<List<Pair<String, Double>>?>(null) }
+    var loadedStops: List<Pair<String, Double>>? = null
 
     Button(
         onClick = { showDialog = true },
@@ -201,12 +181,11 @@ fun LoadStopsButton(
             title = { Text(text = "Stops") },
             text = {
                 LazyColumn {
-                    items(normalStops.size) { index ->
-                        val (stopName, distance) = normalStops[index]
-                        val convertedDistance = if (isKilometers.value) distance else distance / 0.621371
+                    items(loadedStops?.size ?: originalNormalStops.size) { index ->
+                        val stop = loadedStops?.getOrNull(index) ?: originalNormalStops[index]
                         val textColor = if (index == currentStopIndex) Color.Magenta else Color.Black
                         Text(
-                            text = "$stopName - ${formatDistance(convertedDistance, isKilometers.value)}",
+                            text = "${stop.first} - ${formatDistance(stop.second, isKilometers.value)}",
                             modifier = Modifier.padding(bottom = 8.dp),
                             color = textColor
                         )
@@ -217,8 +196,7 @@ fun LoadStopsButton(
                 Button(
                     onClick = {
                         showDialog = false
-                        onStopsLoaded(normalStops)
-                        loadedStops = normalStops
+                        loadedStops?.let { onStopsLoaded(it) }
                     }
                 ) {
                     Text(text = "Close")
@@ -226,8 +204,17 @@ fun LoadStopsButton(
             }
         )
     }
+
 }
 
+@Composable
+fun ListTypeTextBox(normalStops: List<Pair<String, Double>>) {
+    val listType = if (normalStops.size <= 10) "Normal list" else "Lazy list"
+    Text(
+        text = "List Type: $listType",
+        modifier = Modifier.padding(16.dp)
+    )
+}
 
 @Composable
 fun ProgressBar(currentStopIndex: Int, totalStops: Int) {
@@ -273,8 +260,6 @@ fun TextBox(
     }
 }
 
-
-// Function to format distance based on selected unit
 private fun formatDistance(distance: Double, isKilometers: Boolean): String {
     val unit = if (isKilometers) "km" else "mi"
     val convertedDistance = if (isKilometers) distance else distance * 0.621371
