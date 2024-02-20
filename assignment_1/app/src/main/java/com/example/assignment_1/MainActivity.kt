@@ -18,10 +18,6 @@ import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.sp
 import android.os.Bundle
 
 class MainActivity : ComponentActivity() {
@@ -168,7 +164,7 @@ fun LoadStopsButton(
 )
 {
     var showDialog by remember { mutableStateOf(false) }
-    var loadedStops: List<Pair<String, Double>>? = null
+    val loadedStops: List<Pair<String, Double>>? = null
 
     Button(
         onClick = { showDialog = true },

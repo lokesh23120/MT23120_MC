@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp" />
+
+    <!-- Text View for Stop Info -->
+    <TextView
+        android:id="@+id/stopInfoTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Lazy List"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Horizontal Buttons -->
+    <LinearLayout
+        android:id="@+id/horizontalButtonsLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/stopInfoTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp">
+
+        <!-- Button for Converting Units -->
+        <Button
+            android:id="@+id/convertUnitsButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Km to Mile"
+            android:layout_weight="1"/>
+
+        <!-- Button for Next Stop -->
+        <Button
+            android:id="@+id/nextStopButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Next Stop"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <!-- Load Stops Button -->
+    <Button
+        android:id="@+id/loadStopsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load Stops"
+        app:layout_constraintTop_toBottomOf="@id/horizontalButtonsLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
